@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #5323A0; }
+
+thead {
+  font-weight: 900;
+  cursor: pointer; }
+
+td {
+  padding: 0 1em;
+  text-align: center; }
+
+label {
+  color: #fff;
+  margin: 1em; }
+
+.row {
+  margin: 0;
+  min-width: 767px; }
+
+#users {
+  border: 2px solid #DFF0D8;
+  margin: auto;
+  background: #fefefe; }
+
+#countContact {
+  color: #DFF0D8;
+  background: #7C34F0;
+  display: block;
+  margin: auto;
+  padding: 1em;
+  font-weight: 900; }
+
+/*# sourceMappingURL=style.css.map */

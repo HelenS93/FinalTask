@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAGA,IAAK;EACH,UAAU,EAFH,IAAI;;AAIb,aAAc;EACZ,KAAK,EAPC,OAAO;EAQb,UAAU,EAPF,OAAO",
+"sources": ["alternate.scss"],
+"names": [],
+"file": "alternate.css"
+}

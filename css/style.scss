@@ -1,0 +1,37 @@
+$color: #DFF0D8;
+$bgColor: #7C34F0;
+$bgBody: #5323A0;
+body {
+  margin: 0;
+  padding: 0;
+  background: $bgBody;
+}
+thead {
+  font-weight: 900;
+  cursor: pointer;
+}
+td {
+  padding: 0 1em;
+  text-align: center;
+}
+label {
+  color: #fff;
+  margin: 1em;
+}
+.row {
+  margin: 0;
+  min-width: 767px;
+}
+#users {
+  border: 2px solid $color;
+  margin: auto;
+  background: #fefefe;
+}
+#countContact {
+  color: $color;
+  background: $bgColor;
+  display: block;
+  margin: auto;
+  padding: 1em;
+  font-weight: 900;
+}

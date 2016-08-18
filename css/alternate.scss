@@ -1,0 +1,10 @@
+$color: #7C34F0;
+$bgColor: #DFF0D8;
+$bgBody: #000;
+body {
+  background: $bgBody;
+}
+#countContact {
+  color: $color;
+  background: $bgColor;
+}
