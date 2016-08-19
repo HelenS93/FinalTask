@@ -4,13 +4,11 @@
 $(document).ready(function () {
 
 //Вывод списка
-
-
     $(function () {
         $.getJSON('echo.json', function (data) {
             for (var i = 0; i < data.values.length; i++) {
 
-//дата
+//date
                 var birthDay = data.values[i].birthDate.v;
 
                 function dateReviver(value) {
@@ -27,7 +25,7 @@ $(document).ready(function () {
                 };
                 var birthdatDate = dateReviver();
 
-//дата
+//date
 
                 // age
                 var year = new Date().getFullYear(); //текущий год
@@ -43,12 +41,20 @@ $(document).ready(function () {
                     '</td><td><a href="tel:' + data.values[i].tel.v +
                     '" class="ng-binding">' + data.values[i].tel.v + '</a></td>' +
                     //адрес
-                    '<td><a href="http://maps.google.com/?q=' + data.values[i].address.v + '">' + data.values[i].address.v + '</a></td><tr>');
+                    '<td><a class="bt_filters init-map map-initer" data-type="multiple" data-address="' + data.values[i].address.v + '" href="#" data-toggle="modal"  data-target="#myModal">' + data.values[i].address.v + '</a></td><tr>');
+                //href="http://maps.google.com/?q=' + data.values[i].address.v + '"
             }
+
+
             $('#countContact').append('Количество контактов: ' + data.values.length);
+
+
+
         });
     });
 
+
+//modal
 
     //сортировка таблицы
     initial_sort_id = 0; // номер начального отсортированного столбца, начиная с нуля
@@ -220,5 +226,6 @@ $(document).ready(function () {
         var style = $('#style').val();
         chooseStyle(style, 60);
     });
+
 
 });
