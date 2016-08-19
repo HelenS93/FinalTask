@@ -1,28 +1,53 @@
 /**
  * Created by Елена on 26.07.2016.
  */
-$( document ).ready(function() {
+$(document).ready(function () {
 
 //Вывод списка
 
 
-    $(function(){
-            $.getJSON('echo.json', function(data) {
-                for(var i=0;i<data.values.length;i++){
-                    $('#users tbody').append('<tr><td>' + [i+1] +
-                        '</td><td>' + data.values[i].firstName.v +
-                        '</td><td>' + data.values[i].name.v +
-                        '</td><td>' + data.values[i].birthDate.v +
-                            //телефон
-                        '</td><td><a href="tel:' + data.values[i].tel.v +
-                        '" class="ng-binding">' + data.values[i].tel.v + '</a></td>' +
-                            //адрес
-                        '<td><a href="http://maps.google.com/?q='+data.values[i].address.v + '">'+ data.values[i].address.v + '</a></td><tr>');
-                }
-                $('#countContact').append('Количество контактов: ' + data.values.length);
-            });
-        });
+    $(function () {
+        $.getJSON('echo.json', function (data) {
+            for (var i = 0; i < data.values.length; i++) {
 
+//дата
+                var birthDay = data.values[i].birthDate.v;
+
+                function dateReviver(value) {
+                    var re1 = '((?:(?:[1]{1}\\d{1}\\d{1}\\d{1})|(?:[2]{1}\\d{3}))[-:\\/.](?:[0]?[1-9]|[1][012])[-:\\/.](?:(?:[0-2]?\\d{1})|(?:[3][01]{1})))(?![\\d])';	// YYYYMMDD 1
+
+                    var p = new RegExp(re1, ["i"]);
+                    var m = p.exec(birthDay);
+                    if (m != null) {
+                        var yyyymmdd1 = m[1];
+                        var endDate;
+                        endDate = ("(" + yyyymmdd1.replace(/</, "&lt;") + ")" + "\n");
+                    }
+                    return endDate;
+                };
+                var birthdatDate = dateReviver();
+
+//дата
+
+                // age
+                var year = new Date().getFullYear(); //текущий год
+                var birthdayYear = birthdatDate.slice(1, 5); // год рождения
+                var age = year - birthdayYear; //возраст
+                //age
+
+                $('#users tbody').append('<tr><td>' + [i + 1] +
+                    '</td><td>' + data.values[i].firstName.v +
+                    '</td><td>' + data.values[i].name.v +
+                    '</td><td>' + age + " "  + birthdatDate +
+                    //телефон
+                    '</td><td><a href="tel:' + data.values[i].tel.v +
+                    '" class="ng-binding">' + data.values[i].tel.v + '</a></td>' +
+                    //адрес
+                    '<td><a href="http://maps.google.com/?q=' + data.values[i].address.v + '">' + data.values[i].address.v + '</a></td><tr>');
+            }
+            $('#countContact').append('Количество контактов: ' + data.values.length);
+        });
+    });
 
 
     //сортировка таблицы
@@ -105,20 +130,20 @@ $( document ).ready(function() {
 
         var node, arrow, curcol;
         for (var i = 0; (node = dad.getElementsByTagName("td").item(i)); i++) {
-            if (node.lastChild.nodeValue == name){
+            if (node.lastChild.nodeValue == name) {
                 curcol = i;
-                if (node.className == "curcol"){
+                if (node.className == "curcol") {
                     arrow = node.firstChild;
                     table.up = Number(!up);
-                }else{
+                } else {
                     node.className = "curcol";
-                    arrow = node.insertBefore(document.createElement("span"),node.firstChild);
+                    arrow = node.insertBefore(document.createElement("span"), node.firstChild);
                     arrow.appendChild(document.createTextNode(""));
                     table.up = 0;
                 }
-                arrow.innerHTML=((table.up==0)?"&#8595;":"&#8593;")+"&nbsp;";
-            }else{
-                if (node.className == "curcol"){
+                arrow.innerHTML = ((table.up == 0) ? "&#8595;" : "&#8593;") + "&nbsp;";
+            } else {
+                if (node.className == "curcol") {
                     node.className = "";
                     if (node.firstChild) node.removeChild(node.firstChild);
                 }
@@ -146,7 +171,7 @@ $( document ).ready(function() {
     function init(e) {
         if (!document.getElementsByTagName) return;
 
-        if (document.createEvent) function click_elem(elem){
+        if (document.createEvent) function click_elem(elem) {
             var evt = document.createEvent("MouseEvents");
             evt.initMouseEvent("click", false, false, window, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, elem);
             elem.dispatchEvent(evt);
@@ -161,11 +186,11 @@ $( document ).ready(function() {
             }
             thead.parentNode.up = 0;
 
-            if (typeof(initial_sort_id) != "undefined"){
+            if (typeof(initial_sort_id) != "undefined") {
                 td_for_event = thead.getElementsByTagName("td").item(initial_sort_id);
                 if (td_for_event.dispatchEvent) click_elem(td_for_event);
                 else if (td_for_event.fireEvent) td_for_event.fireEvent("onclick");
-                if (typeof(initial_sort_up) != "undefined" && initial_sort_up){
+                if (typeof(initial_sort_up) != "undefined" && initial_sort_up) {
                     if (td_for_event.dispatchEvent) click_elem(td_for_event);
                     else if (td_for_event.fireEvent) td_for_event.fireEvent("onclick");
                 }
@@ -174,7 +199,7 @@ $( document ).ready(function() {
     }
 
     var root = window.addEventListener || window.attachEvent ? window : document.addEventListener ? document : null;
-    if (root){
+    if (root) {
         if (root.addEventListener) root.addEventListener("load", init, false);
         else if (root.attachEvent) root.attachEvent("onload", init);
     }
@@ -183,7 +208,7 @@ $( document ).ready(function() {
 
     $(window).on('load', function () {
         var $preloader = $('#page-preloader'),
-            $spinner   = $preloader.find('.spinner');
+            $spinner = $preloader.find('.spinner');
         $spinner.fadeOut();
         $preloader.delay(350).fadeOut('slow');
     });
