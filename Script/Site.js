@@ -220,6 +220,7 @@ $(document).ready(function () {
     });
 
 
+
     //style
 
     $('#style').change(function () {
@@ -227,5 +228,22 @@ $(document).ready(function () {
         chooseStyle(style, 60);
     });
 
+    $('#myModal').on('shown.bs.modal', function (e) {
+        var initer = $(e.relatedTarget);
+        MapGoogle.initSingle('objects_map', {address: initer.data('address')});
+    });
+    calcMapHeight();
+
 
 });
+
+$(window).resize(function () {
+    calcMapHeight();
+    if (MapGoogle.map && MapGoogle.geo) {
+        MapGoogle.map.setCenter(MapGoogle.geo);
+    }
+});
+
+function calcMapHeight() {
+    $('#objects_map').height($(window).height() - 230);
+}
